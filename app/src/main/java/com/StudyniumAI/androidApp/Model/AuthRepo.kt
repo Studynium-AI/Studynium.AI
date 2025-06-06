@@ -27,6 +27,7 @@ class AuthRepository {
                 return Result.failure(IllegalArgumentException("Invalid email or password"))
             }
             firebaseAuth.createUserWithEmailAndPassword(registrationData.email, registrationData.password).await()
+            firebase
 
             Result.success(Unit)
         } catch (e: Exception) {
