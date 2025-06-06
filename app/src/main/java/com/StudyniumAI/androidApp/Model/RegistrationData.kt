@@ -3,7 +3,6 @@ package com.StudyniumAI.androidApp.Model
 import androidx.compose.material3.SnackbarHostState
 import com.StudyniumAI.androidApp.View.showSnacky
 import kotlinx.coroutines.CoroutineScope
-import java.time.LocalDate
 
 data class RegistrationData(
     val username: String,
