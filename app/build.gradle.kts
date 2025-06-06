@@ -62,4 +62,6 @@ dependencies {
     implementation(libs.material3)
     implementation(libs.androidx.material.icons.extended)
     implementation(libs.androidx.navigation.compose)
+    implementation("com.google.firebase:firebase-firestore-ktx:25.1.4")
+
 }

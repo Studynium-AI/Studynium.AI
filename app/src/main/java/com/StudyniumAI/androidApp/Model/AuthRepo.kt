@@ -2,6 +2,7 @@ package com.StudyniumAI.androidApp.Model
 
 import androidx.compose.material3.SnackbarHostState
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.tasks.await
 
@@ -27,8 +28,8 @@ class AuthRepository {
                 return Result.failure(IllegalArgumentException("Invalid email or password"))
             }
             firebaseAuth.createUserWithEmailAndPassword(registrationData.email, registrationData.password).await()
-            firebase
-
+            val db = FirebaseFirestore.getInstance()
+            db.collection("UserData").add(registrationData).await()
             Result.success(Unit)
         } catch (e: Exception) {
             Result.failure(e)

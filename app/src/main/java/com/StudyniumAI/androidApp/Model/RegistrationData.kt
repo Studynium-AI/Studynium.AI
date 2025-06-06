@@ -18,6 +18,10 @@ data class RegistrationData(
     val patternPassword = Regex("^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[@!#$%^&*+])[A-Za-z0-9@!#$%^&*]+$")
     fun isValidRegister(snackbarHostState: SnackbarHostState,scope: CoroutineScope): Boolean {
         when {
+            username.isEmpty() -> {
+                showSnacky("Username cannot be empty",snackbarHostState,scope)
+                return false
+            }
             email.isEmpty() -> {
                 showSnacky("Email cannot be empty",snackbarHostState,scope)
                 return false
