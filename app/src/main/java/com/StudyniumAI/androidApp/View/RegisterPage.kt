@@ -419,7 +419,7 @@ fun RegisterPage1(snackbarHostState: SnackbarHostState,navController: NavControl
                 modifier = Modifier.padding(vertical = 10.dp, horizontal = 50.dp).align(alignment = Alignment.CenterHorizontally).fillMaxWidth()
             ) {
                 Text(
-                    text = "Register",
+                    text = "Next page!",
                     fontSize = 20.sp,
                     modifier = Modifier.padding(vertical = 10.dp)
                 )
