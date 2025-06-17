@@ -433,13 +433,13 @@ fun RegisterPage1(snackbarHostState: SnackbarHostState,navController: NavControl
 @SuppressLint("ViewModelConstructorInComposable")
 @Composable
 fun RegisterPage2(modifier: Modifier = Modifier,snackbarHostState: SnackbarHostState,navController: NavController,registrationNavController: NavController) {
-    val viewModel = ViewModelAuth()
-    val scope = rememberCoroutineScope()
-    var phoneNumberText by remember { mutableStateOf("") }
+    //val viewModel = ViewModelAuth()
+    //val scope = rememberCoroutineScope()
+    var phoneNumberText by remember { mutableStateOf("0") }
     var countryCode by remember { mutableIntStateOf(1) }
-    val phoneNumber by remember { mutableIntStateOf(phoneNumberText.toInt()) }
+    var phoneNumber : Int
     var gender by remember { mutableStateOf("") }
-    val Gender = listOf<String>("MALE", "FEMALE", "OTHER")
+    val genderList = listOf<String>("MALE", "FEMALE", "OTHER")
 
     Scaffold (
         snackbarHost = {
@@ -470,7 +470,7 @@ fun RegisterPage2(modifier: Modifier = Modifier,snackbarHostState: SnackbarHostS
             }
             Spacer(
                 modifier = Modifier
-                    .size(150.dp)
+                    .size(100.dp)
                     .fillMaxWidth()
             )
             Text(
@@ -478,6 +478,11 @@ fun RegisterPage2(modifier: Modifier = Modifier,snackbarHostState: SnackbarHostS
                 fontSize = 50.sp,
                 fontFamily = nationalParkFamily,
                 modifier = Modifier.padding(horizontal = 25.dp)
+            )
+            Spacer(
+                modifier = Modifier
+                    .size(50.dp)
+                    .fillMaxWidth()
             )
             Row(
                 modifier = Modifier
@@ -491,14 +496,14 @@ fun RegisterPage2(modifier: Modifier = Modifier,snackbarHostState: SnackbarHostS
                 ExposedDropdownMenuBox(
                     expanded = expanded,
                     onExpandedChange = { expanded = !expanded },
-                    modifier = Modifier.padding(10.dp).size(56.dp)
+                    modifier = Modifier.padding(10.dp).size(100.dp,56.dp)
                 ) {
-                    var selectedOptionText = "+"
-                    TextField(
+                    var selectedOptionText by remember { mutableStateOf("+" + countryCodes.firstOrNull().toString()) }
+                    OutlinedTextField(
                         value = selectedOptionText,
                         onValueChange = {},
                         readOnly = true,
-                        label = { Text("Select Language") },
+                        label = { Text("Select Code") },
                         trailingIcon = {
                             ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
                         },
@@ -534,10 +539,10 @@ fun RegisterPage2(modifier: Modifier = Modifier,snackbarHostState: SnackbarHostS
             ExposedDropdownMenuBox(
                 expanded = genderExpanded,
                 onExpandedChange = { genderExpanded = !genderExpanded },
-                modifier = Modifier.padding(10.dp).size(56.dp)
+                modifier = Modifier.padding(10.dp).size(1000.dp,56.dp)
             ) {
-                var selectedOptionText = "+"
-                TextField(
+                var selectedOptionText by remember { mutableStateOf(genderList.firstOrNull() ?: "") }
+                OutlinedTextField(
                     value = selectedOptionText,
                     onValueChange = {},
                     readOnly = true,
@@ -546,7 +551,7 @@ fun RegisterPage2(modifier: Modifier = Modifier,snackbarHostState: SnackbarHostS
                         ExposedDropdownMenuDefaults.TrailingIcon(expanded = genderExpanded)
                     },
                     modifier = Modifier
-                        .menuAnchor() // REQUIRED for proper positioning
+                        .menuAnchor(type = MenuAnchorType.PrimaryEditable, enabled = true) // REQUIRED for proper positioning
                         .fillMaxWidth()
                 )
 
@@ -554,7 +559,7 @@ fun RegisterPage2(modifier: Modifier = Modifier,snackbarHostState: SnackbarHostS
                     expanded = genderExpanded,
                     onDismissRequest = { genderExpanded = false }
                 ) {
-                    Gender.forEach { selectionOption ->
+                    genderList.forEach { selectionOption ->
                         DropdownMenuItem(
                             text = { Text(selectionOption.toString()) },
                             onClick = {
@@ -566,24 +571,34 @@ fun RegisterPage2(modifier: Modifier = Modifier,snackbarHostState: SnackbarHostS
                     }
                 }
             }
+            Spacer(
+                modifier = Modifier
+                    .size(100.dp)
+                    .fillMaxWidth()
+            )
             Button(
                 onClick = {
-                    viewModel.registerClick(
-                        RegistrationData(
-                            username = data["username"].toString(),
-                            email = data["email"].toString(),
-                            password = data["password"].toString(),
-                            phoneNumber = phoneNumber,
-                            countryCode = countryCode,
-                            gender = gender,
-                        ),
-                        scope,
-                        snackbarHostState,
-                        navController
-                    )
-                }
-                ) {
-                Text(text = "Register")
+                    phoneNumber = phoneNumberText.toIntOrNull() ?: 0
+//                    viewModel.registerClick(
+//                        RegistrationData(
+//                            username = data["username"].toString(),
+//                            email = data["email"].toString(),
+//                            password = data["password"].toString(),
+//                            phoneNumber = phoneNumber,
+//                            countryCode = countryCode,
+//                            gender = gender,
+//                        ),
+//                        scope,
+//                        snackbarHostState,
+//                        navController
+//                    )
+                    },
+                modifier = Modifier.padding(vertical = 10.dp, horizontal = 50.dp).align(alignment = Alignment.CenterHorizontally).fillMaxWidth()
+            ) {
+                Text(
+                    text = "Register",
+                    fontSize = 20.sp,
+                    modifier = Modifier.padding(vertical = 10.dp))
             }
         }
     }
