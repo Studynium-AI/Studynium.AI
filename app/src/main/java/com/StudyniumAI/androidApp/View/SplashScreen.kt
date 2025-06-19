@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun SplashScreen(navController: NavController) {
     Box(
-        modifier = Modifier.fillMaxSize().background(Color(0x80E0FFFF)),
+        modifier = Modifier.fillMaxSize().background(Color(0xFF9381FF)),
         contentAlignment = Alignment.Center,
         content = {
             Image(
