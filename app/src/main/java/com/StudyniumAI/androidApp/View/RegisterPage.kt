@@ -603,3 +603,15 @@ fun RegisterPage2(modifier: Modifier = Modifier,snackbarHostState: SnackbarHostS
         }
     }
 }
+
+@Preview
+@Composable
+fun RegisterPage1Preview() {
+    RegisterPage1(snackbarHostState = SnackbarHostState(), navController = rememberNavController(), registrationNavController = rememberNavController())
+}
+
+@Preview
+@Composable
+fun RegisterPage2Preview() {
+    RegisterPage2(snackbarHostState = SnackbarHostState(), navController = rememberNavController(), registrationNavController = rememberNavController())
+}
