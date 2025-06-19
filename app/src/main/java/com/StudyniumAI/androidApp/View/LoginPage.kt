@@ -16,6 +16,7 @@ import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
@@ -38,9 +39,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.StudyniumAI.androidApp.Model.LoginData
 import com.StudyniumAI.androidApp.R
 import com.StudyniumAI.androidApp.View.Navigation.AppDestinations.REGISTRATION_ROUTE
@@ -78,7 +81,7 @@ fun LoginViewContent(modifier: Modifier = Modifier,snackbarHostState: SnackbarHo
     Column (
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Color(0x80E0FFFF))
+            .background(color = MaterialTheme.colorScheme.background)
     ) {
         Spacer(
             modifier = Modifier
@@ -173,4 +176,10 @@ fun LoginViewContent(modifier: Modifier = Modifier,snackbarHostState: SnackbarHo
             )
         }
     }
+}
+
+@Preview
+@Composable
+fun LoginViewPreview() {
+    LoginView(navController = rememberNavController())
 }

@@ -5,12 +5,12 @@ import com.StudyniumAI.androidApp.View.showSnacky
 import kotlinx.coroutines.CoroutineScope
 
 data class RegistrationData(
-    val username: String,
-    val email: String,
-    val password: String,
-    val phoneNumber: Int,
-    val countryCode: Int,
-    val gender: String,
+    val username: String = "",
+    val email: String = "",
+    val password: String = "",
+    val phoneNumber: Int = 0,
+    val countryCode: Int = 0 ,
+    val gender: String = "",
 //    val dateOfBirth: String,
 ) {
     val patternEmail = Regex("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
@@ -48,4 +48,15 @@ data class RegistrationData(
         }
         return true
     }
+    fun toHashMap(registrationState : Boolean = true): HashMap<String, Any> {
+        return hashMapOf(
+                "username" to username,
+                "email" to email,
+                "password" to password,
+                "phoneNumber" to phoneNumber,
+                "countryCode" to countryCode,
+                "gender" to gender,
+            )
+    }
+
 }

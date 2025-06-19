@@ -287,7 +287,7 @@ fun RegisterPage1(snackbarHostState: SnackbarHostState,navController: NavControl
         Column (
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color(0x80E0FFFF))
+                .background(MaterialTheme.colorScheme.background)
         ) {
             Spacer(modifier = Modifier
                 .size(50.dp)
@@ -433,8 +433,8 @@ fun RegisterPage1(snackbarHostState: SnackbarHostState,navController: NavControl
 @SuppressLint("ViewModelConstructorInComposable")
 @Composable
 fun RegisterPage2(modifier: Modifier = Modifier,snackbarHostState: SnackbarHostState,navController: NavController,registrationNavController: NavController) {
-    //val viewModel = ViewModelAuth()
-    //val scope = rememberCoroutineScope()
+    val viewModel = ViewModelAuth()
+    val scope = rememberCoroutineScope()
     var phoneNumberText by remember { mutableStateOf("0") }
     var countryCode by remember { mutableIntStateOf(1) }
     var phoneNumber : Int
@@ -450,7 +450,7 @@ fun RegisterPage2(modifier: Modifier = Modifier,snackbarHostState: SnackbarHostS
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color(0x80E0FFFF))
+                .background(MaterialTheme.colorScheme.background)
         ) {
             Spacer(
                 modifier = Modifier
@@ -579,19 +579,19 @@ fun RegisterPage2(modifier: Modifier = Modifier,snackbarHostState: SnackbarHostS
             Button(
                 onClick = {
                     phoneNumber = phoneNumberText.toIntOrNull() ?: 0
-//                    viewModel.registerClick(
-//                        RegistrationData(
-//                            username = data["username"].toString(),
-//                            email = data["email"].toString(),
-//                            password = data["password"].toString(),
-//                            phoneNumber = phoneNumber,
-//                            countryCode = countryCode,
-//                            gender = gender,
-//                        ),
-//                        scope,
-//                        snackbarHostState,
-//                        navController
-//                    )
+                    viewModel.registerClick(
+                        RegistrationData(
+                            username = data["username"].toString(),
+                            email = data["email"].toString(),
+                            password = data["password"].toString(),
+                            phoneNumber = phoneNumber,
+                            countryCode = countryCode,
+                            gender = gender,
+                        ),
+                        scope,
+                        snackbarHostState,
+                        navController
+                    )
                     },
                 modifier = Modifier.padding(vertical = 10.dp, horizontal = 50.dp).align(alignment = Alignment.CenterHorizontally).fillMaxWidth()
             ) {

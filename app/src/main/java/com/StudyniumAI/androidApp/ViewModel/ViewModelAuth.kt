@@ -60,4 +60,8 @@ class ViewModelAuth : ViewModel() {
             }
         }
     }
+
+    fun ViewData() {
+
+    }
 }

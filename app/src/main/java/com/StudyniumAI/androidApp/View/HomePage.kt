@@ -13,6 +13,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MediumTopAppBar
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
@@ -54,6 +55,11 @@ fun HomeView(navController: NavController) {
                     modifier = Modifier.padding(16.dp),
                     fontSize = 50.sp,fontFamily = nationalParkFamily
                 )
+                Text(
+                    text = "Empowering Your Study",
+                    modifier = Modifier.padding(16.dp),
+                    fontSize = 20.sp,fontFamily = nationalParkFamily
+                )
                 HorizontalDivider()
                 NavigationDrawerItem(
                     label = { Text(text = "Sign Out") },
@@ -63,7 +69,6 @@ fun HomeView(navController: NavController) {
                     },
                     icon = { Icon(Icons.AutoMirrored.Outlined.Logout, contentDescription = "Sign Out") }
                 )
-                // ...other drawer items
             }
         }
     ) {
@@ -112,7 +117,7 @@ fun HomeViewContent(modifier: Modifier = Modifier) {
     Column(
         modifier = Modifier
             .size(700.dp)
-            .background(Color(0x80E0FFFF))
+            .background(MaterialTheme.colorScheme.background)
     ) {
         Text(
             text = "Home",
