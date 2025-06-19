@@ -15,6 +15,7 @@ import com.StudyniumAI.androidApp.View.HomeView
 import com.StudyniumAI.androidApp.View.LoginView
 import com.StudyniumAI.androidApp.View.Navigation.AppDestinations
 import com.StudyniumAI.androidApp.View.RegisterView
+import com.StudyniumAI.androidApp.View.SplashScreen
 
 
 class MainActivity : ComponentActivity() {
@@ -39,6 +40,9 @@ class MainActivity : ComponentActivity() {
                     }
                     composable(AppDestinations.HOME_ROUTE) {
                         HomeView(navController = navController)
+                    }
+                    composable(AppDestinations.SPLASH_ROUTE) {
+                        SplashScreen(navController = navController)
                     }
                 }
             }
