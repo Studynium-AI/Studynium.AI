@@ -37,7 +37,7 @@ fun AuthContent(navController: NavController) {
         Column (
             modifier = Modifier.fillMaxWidth(0.8f).padding(20.dp)
         ){
-            Image(painter = painterResource(id = R.drawable.studynium_ai), contentDescription = "Description of your image", modifier = Modifier.size(250.dp).align(Alignment.CenterHorizontally))
+            Image(painter = painterResource(id = R.drawable.studynium_ai), contentDescription = "The Studynium.AI logo", modifier = Modifier.size(250.dp).align(Alignment.CenterHorizontally))
             Text(
                 text = "Welcome to Studynium AI",
                 fontSize = 30.sp,

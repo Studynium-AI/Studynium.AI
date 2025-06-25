@@ -8,8 +8,8 @@ data class RegistrationData(
     val username: String = "",
     val email: String = "",
     val password: String = "",
-    val phoneNumber: Int = 0,
-    val countryCode: Int = 0 ,
+    val phoneNumber: String = "",
+    val countryCode: Int = 0,
     val gender: String = "",
 //    val dateOfBirth: String,
 ) {
@@ -41,8 +41,8 @@ data class RegistrationData(
 //                showSnacky("Invalid Date of Birth",snackbarHostState,scope)
 //                return false
 //            }
-            phoneNumber.toString().length != 10 -> {
-                showSnacky("Invalid Phone Number",snackbarHostState,scope)
+            phoneNumber.length != 10 -> {
+                showSnacky("Invalid Phone Number $phoneNumber",snackbarHostState,scope)
                 return false
             }
         }

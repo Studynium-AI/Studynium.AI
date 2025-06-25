@@ -30,9 +30,11 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.StudyniumAI.androidApp.ViewModel.ViewModelAuth
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -132,4 +134,10 @@ fun showSnacky(status: String, snackbarHostState: SnackbarHostState, scope: Coro
     scope.launch {
         snackbarHostState.showSnackbar(status)
     }
+}
+
+@Preview
+@Composable
+fun HomeViewPreview() {
+    HomeView(navController = rememberNavController())
 }

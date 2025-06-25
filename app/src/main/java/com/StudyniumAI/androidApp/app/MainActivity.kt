@@ -31,7 +31,7 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 NavHost(
                     navController = navController,
-                    startDestination = AppDestinations.LOGIN_ROUTE
+                    startDestination = AppDestinations.SPLASH_ROUTE
                 ) {
                     composable(AppDestinations.LOGIN_ROUTE) {
                         LoginView(navController = navController)

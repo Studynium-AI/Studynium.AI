@@ -29,7 +29,6 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -39,7 +38,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -57,6 +55,7 @@ import com.StudyniumAI.androidApp.View.Navigation.AppDestinations
 import com.StudyniumAI.androidApp.ViewModel.ViewModelAuth
 
 val countryCodes = listOf(
+    91,   // India
     93,   // Afghanistan
     355,  // Albania
     213,  // Algeria
@@ -124,7 +123,6 @@ val countryCodes = listOf(
     504,  // Honduras
     36,   // Hungary
     354,  // Iceland
-    91,   // India
     62,   // Indonesia
     98,   // Iran
     964,  // Iraq
@@ -294,7 +292,7 @@ fun RegisterPage1(snackbarHostState: SnackbarHostState,navController: NavControl
                 .fillMaxWidth())
             IconButton(
                 onClick = {
-                    navController.navigate(AppDestinations.LOGIN_ROUTE)
+                    navController.navigate(AppDestinations.AUTH_ROUTE)
                 }
             ) {
                 Image(painter = painterResource(id = R.drawable.left), contentDescription = "Back button", modifier = Modifier.size(30.dp))
@@ -437,7 +435,6 @@ fun RegisterPage2(modifier: Modifier = Modifier,snackbarHostState: SnackbarHostS
     val scope = rememberCoroutineScope()
     var phoneNumberText by remember { mutableStateOf("0") }
     var countryCode by remember { mutableIntStateOf(1) }
-    var phoneNumber : Int
     var gender by remember { mutableStateOf("") }
     val genderList = listOf<String>("MALE", "FEMALE", "OTHER")
 
@@ -492,7 +489,7 @@ fun RegisterPage2(modifier: Modifier = Modifier,snackbarHostState: SnackbarHostS
             ) {
                 var enabled = true
                 var type : MenuAnchorType = MenuAnchorType.PrimaryEditable
-                var expanded = false
+                var expanded by remember { mutableStateOf(false) }
                 ExposedDropdownMenuBox(
                     expanded = expanded,
                     onExpandedChange = { expanded = !expanded },
@@ -535,7 +532,7 @@ fun RegisterPage2(modifier: Modifier = Modifier,snackbarHostState: SnackbarHostS
                     onValueChange = { phoneNumberText = it }
                 )
             }
-            var genderExpanded = false
+            var genderExpanded by remember { mutableStateOf(false) }
             ExposedDropdownMenuBox(
                 expanded = genderExpanded,
                 onExpandedChange = { genderExpanded = !genderExpanded },
@@ -578,13 +575,12 @@ fun RegisterPage2(modifier: Modifier = Modifier,snackbarHostState: SnackbarHostS
             )
             Button(
                 onClick = {
-                    phoneNumber = phoneNumberText.toIntOrNull() ?: 0
                     viewModel.registerClick(
                         RegistrationData(
                             username = data["username"].toString(),
                             email = data["email"].toString(),
                             password = data["password"].toString(),
-                            phoneNumber = phoneNumber,
+                            phoneNumber = phoneNumberText,
                             countryCode = countryCode,
                             gender = gender,
                         ),

@@ -46,6 +46,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.StudyniumAI.androidApp.Model.LoginData
 import com.StudyniumAI.androidApp.R
+import com.StudyniumAI.androidApp.View.Navigation.AppDestinations
 import com.StudyniumAI.androidApp.View.Navigation.AppDestinations.REGISTRATION_ROUTE
 import com.StudyniumAI.androidApp.ViewModel.ViewModelAuth
 import kotlinx.coroutines.launch
@@ -85,9 +86,16 @@ fun LoginViewContent(modifier: Modifier = Modifier,snackbarHostState: SnackbarHo
     ) {
         Spacer(
             modifier = Modifier
-                .size(100.dp)
+                .size(50.dp)
                 .fillMaxWidth()
         )
+        IconButton(
+            onClick = {
+                navController.navigate(AppDestinations.AUTH_ROUTE)
+            }
+        ) {
+            Image(painter = painterResource(id = R.drawable.left), contentDescription = "Back button", modifier = Modifier.size(30.dp))
+        }
         Image(
             painter = painterResource(id = R.drawable.books), // Replace with your image name (without extension)
             contentDescription = "Hand drawn image of books", // Important for accessibility
@@ -161,17 +169,6 @@ fun LoginViewContent(modifier: Modifier = Modifier,snackbarHostState: SnackbarHo
         ) {
             Text(
                 text = "Forgot Password?",
-                fontSize = 15.sp
-            )
-        }
-        TextButton(
-            onClick = {
-                navController.navigate(REGISTRATION_ROUTE)
-            },
-            modifier = Modifier.align(alignment = Alignment.CenterHorizontally).fillMaxWidth()
-        ) {
-            Text(
-                text = "New user? Register Now!",
                 fontSize = 15.sp
             )
         }

@@ -38,7 +38,7 @@ fun SplashScreen(navController: NavController) {
 fun navigateToLogin(navController: NavController, coroutineScope: kotlinx.coroutines.CoroutineScope) {
     coroutineScope.launch {
         delay(500)
-        navController.navigate(AppDestinations.LOGIN_ROUTE)
+        navController.navigate(AppDestinations.AUTH_ROUTE)
     }
 }
 
