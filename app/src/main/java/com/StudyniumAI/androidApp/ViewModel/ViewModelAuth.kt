@@ -61,7 +61,15 @@ class ViewModelAuth : ViewModel() {
         }
     }
 
-    fun ViewData() {
-
+    fun ViewData(scope: CoroutineScope, user: String, snackbarHostState: SnackbarHostState) {
+        viewModelScope.launch {
+            val status = repository.fetchUserData(user, snackbarHostState, scope)
+            if (status is RegistrationData) {
+                showSnacky("Data Fetch Successful", snackbarHostState,scope)
+            }
+            else {
+                showSnacky("Data Fetch Failed", snackbarHostState, scope)
+            }
+        }
     }
 }
