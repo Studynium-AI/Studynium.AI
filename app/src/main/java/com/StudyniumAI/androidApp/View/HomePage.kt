@@ -1,22 +1,28 @@
 package com.StudyniumAI.androidApp.View
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.Logout
 import androidx.compose.material.icons.automirrored.outlined.Message
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Card
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.MediumTopAppBar
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.NavigationDrawerItem
@@ -25,6 +31,7 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.material3.rememberTopAppBarState
@@ -35,28 +42,29 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.datastore.core.DataStore
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.StudyniumAI.androidApp.Model.RegistrationData
-import com.StudyniumAI.androidApp.ViewModel.ViewModelAuth
+import com.StudyniumAI.androidApp.Model.JetpackDataStore.LocalData
+import com.StudyniumAI.androidApp.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @SuppressLint("ViewModelConstructorInComposable")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeView(navController: NavController) {
+fun HomeView(navController: NavController, dataStore: DataStore<LocalData>) {
     val snackbarHostState = SnackbarHostState()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
     val scope = rememberCoroutineScope()
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-    val viewModel : ViewModelAuth = ViewModelAuth()
+//    val viewModel : ViewModelAuth = ViewModelAuth()
     val dialogState: DialogState = rememberDialogState()
 
     ModalNavigationDrawer(
@@ -77,7 +85,7 @@ fun HomeView(navController: NavController) {
                     label = { Text(text = "Sign Out") },
                     selected = false,
                     onClick = {
-                            viewModel.signOutClick(scope,snackbarHostState,navController)
+//                            viewModel.signOutClick(scope,snackbarHostState,navController)
                     },
                     icon = { Icon(Icons.AutoMirrored.Outlined.Logout, contentDescription = "Sign Out") }
                 )
@@ -87,16 +95,10 @@ fun HomeView(navController: NavController) {
         Scaffold(
             modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
             topBar = {
-                MediumTopAppBar(
+                TopAppBar(
                     title = {
-                        Text(
-                            text = "Home",
-                            fontSize = 50.sp,
-                            fontFamily = nationalParkFamily,
-                            modifier = Modifier.padding(horizontal = 25.dp)
-                        )
+                        Image(painter = painterResource(R.drawable.studynium_ai), contentDescription = "Logo", modifier = Modifier.fillMaxHeight())
                     },
-                    scrollBehavior = scrollBehavior,
                     actions = {
                         IconButton(onClick = {
                             scope.launch {
@@ -111,7 +113,7 @@ fun HomeView(navController: NavController) {
                             )
                         }
                     },
-
+                    modifier = Modifier.height(70.dp).fillMaxWidth()
                     )
             },
             snackbarHost = {
@@ -132,17 +134,46 @@ fun HomeView(navController: NavController) {
 
 @Composable
 fun HomeViewContent(modifier: Modifier = Modifier) {
+    val username : String = "user"
+    val userMap = mapOf<String, Any>(
+        "username" to "user",
+        "Phone Number" to "1234567890",
+        "Stuff" to listOf("Sub1", "Sub2", "Sub3")
+
+    )
     Column(
         modifier = Modifier
             .size(700.dp)
             .background(MaterialTheme.colorScheme.background)
+            .fillMaxHeight()
     ) {
+        Spacer(modifier = Modifier.size(70.dp))
         Text(
-            text = "Home",
+            text = "Welcome Back $username",
             fontSize = 50.sp,
             fontFamily = nationalParkFamily,
             modifier = Modifier.padding(horizontal = 25.dp)
-            )
+        )
+        Text(
+            text = "Ready To Continue Your Journey To Academic Success ?? \n Lets Get That GPA !!",
+            fontSize = 20.sp,
+            fontFamily = nationalParkFamily,
+            modifier = Modifier.padding(horizontal = 25.dp,vertical = 15.dp)
+        )
+        Card (
+            modifier = Modifier.fillMaxWidth().padding(25.dp).wrapContentHeight(),
+            shape = MaterialTheme.shapes.medium,
+            onClick = {}
+        ) {
+            for ((key, value) in userMap) {
+                Text(
+                    text = "$key : $value",
+                    fontFamily = nationalParkFamily,
+                    fontSize = 15.sp,
+                    modifier = Modifier.padding(16.dp)
+                )
+            }
+        }
     }
 }
 
@@ -152,11 +183,11 @@ fun showSnacky(status: String, snackbarHostState: SnackbarHostState, scope: Coro
     }
 }
 
-@Preview
-@Composable
-fun HomeViewPreview() {
-    HomeView(navController = rememberNavController())
-}
+//@Preview
+//@Composable
+//fun HomeViewPreview() {
+//    HomeView(navController = rememberNavController(), dataStore = LocalData())
+//}
 
 @Composable
 fun DialogFn(
@@ -242,4 +273,10 @@ class DialogState {
 
 @Composable
 fun rememberDialogState(): DialogState = remember { DialogState() }
+
+@Preview
+@Composable
+fun preview() {
+    HomeViewContent()
+}
 

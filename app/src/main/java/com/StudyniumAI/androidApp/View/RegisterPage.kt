@@ -45,10 +45,12 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.datastore.core.DataStore
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.StudyniumAI.androidApp.Model.JetpackDataStore.LocalData
 import com.StudyniumAI.androidApp.Model.RegistrationData
 import com.StudyniumAI.androidApp.R
 import com.StudyniumAI.androidApp.View.Navigation.AppDestinations
@@ -240,7 +242,7 @@ val data = mutableMapOf<String, String>()
 
 
 @Composable
-fun RegisterView(navController: NavController) {
+fun RegisterView(navController: NavController, dataStore: DataStore<LocalData>) {
     val snackbarHostState = remember { SnackbarHostState() }
     Surface(
         modifier = Modifier.fillMaxSize(),

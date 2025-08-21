@@ -3,10 +3,13 @@ package com.StudyniumAI.androidApp.ViewModel
 //import androidx.lifecycle.LiveData
 //import androidx.lifecycle.MutableLiveData
 import androidx.compose.material3.SnackbarHostState
+import androidx.datastore.core.DataStore
+import androidx.datastore.dataStore
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.StudyniumAI.androidApp.Model.AuthRepository
+import com.StudyniumAI.androidApp.Model.JetpackDataStore.LocalData
 import com.StudyniumAI.androidApp.Model.LoginData
 import com.StudyniumAI.androidApp.Model.RegistrationData
 import com.StudyniumAI.androidApp.View.Navigation.AppDestinations
@@ -61,9 +64,9 @@ class ViewModelAuth : ViewModel() {
         }
     }
 
-    fun ViewData(scope: CoroutineScope, user: String, snackbarHostState: SnackbarHostState) {
+    fun ViewData(scope: CoroutineScope, user: String, snackbarHostState: SnackbarHostState, dataStore: DataStore<LocalData>) {
         viewModelScope.launch {
-            val status = repository.fetchUserData(user, snackbarHostState, scope)
+            val status = repository.fetchUserData(user, snackbarHostState, scope, dataStore)
             if (status is RegistrationData) {
                 showSnacky("Data Fetch Successful", snackbarHostState,scope)
             }
