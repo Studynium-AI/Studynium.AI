@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.2.0"
+    id("com.google.protobuf") version "0.9.5"
 }
 
 android {
@@ -11,8 +13,8 @@ android {
 
     defaultConfig {
         applicationId = "com.StudyniumAI.androidApp"
-        minSdk = 33
-        targetSdk = 35
+        minSdk = 32
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
@@ -29,11 +31,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-    kotlinOptions {
-        jvmTarget = "11"
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
     buildFeatures {
         compose = true
@@ -58,10 +57,36 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.auth)
     implementation(libs.material3)
     implementation(libs.androidx.material.icons.extended)
     implementation(libs.androidx.navigation.compose)
-    implementation("com.google.firebase:firebase-firestore-ktx:25.1.4")
+    implementation(libs.androidx.datastore)
+    implementation("com.google.firebase:firebase-firestore:24.4.1") {
+        exclude(group = "com.google.firebase", module = "protolite-well-known-types")
+    }
+    implementation("com.google.firebase:firebase-auth:21.1.0") {
+        exclude(group = "com.google.firebase", module = "protolite-well-known-types")
+    }
+    // Explicitly include the protobuf-javalite version you want to use
+    //noinspection UseTomlInstead
+    implementation("com.google.protobuf:protobuf-javalite:4.32.0")
+    //noinspection UseTomlInstead
+    implementation("org.jetbrains.kotlinx:kotlinx-collections-immutable:0.4.0")
+    //noinspection UseTomlInstead
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")
+}
 
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.24.0"
+    }
+    generateProtoTasks {
+        all().forEach {
+            it.builtins {
+                create("java") {
+                    option("lite")
+                }
+            }
+        }
+    }
 }
