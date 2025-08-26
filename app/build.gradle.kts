@@ -67,7 +67,8 @@ dependencies {
     implementation("com.google.firebase:firebase-auth:21.1.0") {
         exclude(group = "com.google.firebase", module = "protolite-well-known-types")
     }
-    // Explicitly include the protobuf-javalite version you want to use
+    implementation("dev.whyoleg.cryptography:cryptography-core:0.5.0")
+    implementation("dev.whyoleg.cryptography:cryptography-provider-optimal:0.5.0")
     //noinspection UseTomlInstead
     implementation("com.google.protobuf:protobuf-javalite:4.32.0")
     //noinspection UseTomlInstead

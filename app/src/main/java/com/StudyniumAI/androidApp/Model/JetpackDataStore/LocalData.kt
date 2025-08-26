@@ -3,6 +3,8 @@ package com.StudyniumAI.androidApp.Model.JetpackDataStore
 import kotlinx.collections.immutable.PersistentMap
 import kotlinx.collections.immutable.persistentMapOf
 import kotlinx.serialization.Serializable
+import com.StudyniumAI.androidApp.Model.PBKDF2.ApiKeyEncryptor.decryptKey
+import com.StudyniumAI.androidApp.Model.PBKDF2.ApiKeyEncryptor.encryptKey
 
 @Serializable
 data class LocalData (
@@ -31,12 +33,29 @@ data class ModelMetas(
 
 @Serializable
 data class APIKeys(
-    val geminiKey: String = "",
-    val searchKey: String = ""
+    var geminiKey: String = "",
+    var searchKey: String = ""
     //aXriv also doesn't need an api key as we are not using ad revenue in this
     //no need for wikimedia as the thing has no restrictions
-)
+) {
+    /**
+     * Use this to store keys in encrypted manner.
+     * And Never store keys directly as a Raw String as it is not safe.
+     * uses the current session password ( the user must be logged in to do this! )
+     */
+    fun storeKeyProperly(password:String,apikey:String,keyToStoreIn: Enum<KeyOptions>){
+        val encrypted = encryptKey(apiKey = apikey, password = password)
+        when (keyToStoreIn) {
+            KeyOptions.GEMINIKEY -> geminiKey = encrypted
+            KeyOptions.SEARCHKEY -> searchKey = encrypted
+        }
+    }
+}
 
 enum class Mode {
     ADD,REMOVE,UPDATE
+}
+
+enum class KeyOptions {
+    GEMINIKEY,SEARCHKEY
 }
